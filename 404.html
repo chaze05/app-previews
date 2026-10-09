@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<script>
+  (function () {
+    var p = window.location.pathname || "";
+    var target = "/app-previews/";
+    if (p.indexOf("/app-previews/ambag/") === 0) target = "/app-previews/ambag/";
+    else if (p.indexOf("/app-previews/tipon/") === 0) target = "/app-previews/tipon/";
+    window.location.replace(target);
+  })();
+</script>
+</head>
+<body></body>
+</html>

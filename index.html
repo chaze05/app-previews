@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>App Previews — Rani M. Rubillos</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 40px; padding: 48px 20px;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: radial-gradient(circle at 50% 0%, #1c1740 0%, #0a0d16 55%);
+    color: #fff;
+  }
+  h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; text-align: center; }
+  p.sub { color: rgba(255,255,255,.6); text-align: center; margin-top: -26px; font-size: 16px; }
+  .grid { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+  a.card {
+    width: 280px; padding: 28px; border-radius: 24px; text-decoration: none; color: inherit;
+    border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04);
+    transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  a.card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.07); }
+  .badge { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 800; margin-bottom: 18px; }
+  .ambag .badge { background: linear-gradient(135deg, #7C6CFF, #4A9BFF); }
+  .tipon .badge { background: linear-gradient(135deg, #2ED47A, #0E5232); }
+  h2 { font-size: 22px; margin-bottom: 8px; }
+  .desc { color: rgba(255,255,255,.6); font-size: 14px; line-height: 1.5; }
+  .note { color: rgba(255,255,255,.35); font-size: 12px; text-align: center; max-width: 520px; line-height: 1.6; }
+</style>
+</head>
+<body>
+  <div>
+    <h1>App Previews</h1>
+    <p class="sub">Interactive web builds of my mobile projects</p>
+  </div>
+  <div class="grid">
+    <a class="card ambag" href="/app-previews/ambag/">
+      <div class="badge">A</div>
+      <h2>Ambag</h2>
+      <div class="desc">Subscription cost sharing. Tap &ldquo;Preview with sample data&rdquo; to explore the demo.</div>
+    </a>
+    <a class="card tipon" href="/app-previews/tipon/">
+      <div class="badge">T</div>
+      <h2>Tipon</h2>
+      <div class="desc">Paluwagan, organized. Complete the short onboarding to see the app.</div>
+    </a>
+  </div>
+  <p class="note">These are static web exports of React Native apps for preview only. Notifications and some native features are unavailable on the web.</p>
+</body>
+</html>
