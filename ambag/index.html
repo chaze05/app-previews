@@ -23,7 +23,68 @@
         flex: 1;
       }
     </style>
-  <link rel="icon" href="/app-previews/ambag/favicon.ico"/></head>
+  <link rel="icon" href="/app-previews/ambag/favicon.ico"/>
+    <style id="preview-frame">
+      @media (min-width: 560px) {
+        html {
+          background: #05060a;
+        }
+        body {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          background:
+            radial-gradient(700px 700px at 78% 10%, rgba(124,108,255,0.26), transparent 60%),
+            radial-gradient(650px 650px at 18% 92%, rgba(74,155,255,0.16), transparent 60%),
+            #05060a;
+        }
+        .preview-bar {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font: 600 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        .preview-bar a,
+        .preview-bar span {
+          color: rgba(255,255,255,0.72);
+          text-decoration: none;
+          border: 1px solid rgba(255,255,255,0.16);
+          background: rgba(255,255,255,0.05);
+          padding: 8px 14px;
+          border-radius: 999px;
+          backdrop-filter: blur(8px);
+        }
+        .preview-bar a:hover {
+          color: #fff;
+          border-color: rgba(255,255,255,0.4);
+        }
+        #root {
+          --frame-h: min(840px, calc(100vh - 132px));
+          flex: 0 0 auto;
+          height: var(--frame-h);
+          width: calc(var(--frame-h) * 0.4626);
+          border-radius: calc(var(--frame-h) * 0.058);
+          overflow: hidden;
+          position: relative;
+          background: #0a0d16;
+          border: 1px solid rgba(255,255,255,0.15);
+          box-shadow:
+            0 0 0 9px rgba(255,255,255,0.045),
+            0 0 0 10px rgba(255,255,255,0.10),
+            0 60px 130px rgba(0,0,0,0.65),
+            0 0 90px rgba(124,108,255,0.16);
+          transform: translateZ(0);
+        }
+      }
+      @media (max-width: 559px) {
+        .preview-bar {
+          display: none;
+        }
+      }
+    </style>
+  </head>
 
   <body>
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
@@ -31,6 +92,11 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <!-- The root element for your Expo app. -->
+    
+    <div class="preview-bar">
+      <a href="/app-previews/">&larr; All previews</a>
+      <span>Ambag &mdash; mobile web preview</span>
+    </div>
     <div id="root"></div>
   <script src="/app-previews/ambag/_expo/static/js/web/entry-e74807d625f575c4ddea28f2efb0781a.js" defer></script>
 </body>

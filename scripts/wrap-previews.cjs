@@ -1,29 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Tipon</title>
-    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
-    <style id="expo-reset">
-      /* These styles make the body full-height */
-      html,
-      body {
-        height: 100%;
-      }
-      /* These styles disable body scrolling if you are using <ScrollView> */
-      body {
-        overflow: hidden;
-      }
-      /* These styles make the root element full-height */
-      #root {
-        display: flex;
-        height: 100%;
-        flex: 1;
-      }
-    </style>
-  <link rel="icon" href="/app-previews/tipon/favicon.ico"/>
+const fs = require("fs");
+const path = require("path");
+
+const APPS = [
+  {
+    file: "ambag/index.html",
+    name: "Ambag",
+    glow: "124,108,255",
+    glow2: "74,155,255",
+    bg: "#0a0d16",
+  },
+  {
+    file: "tipon/index.html",
+    name: "Tipon",
+    glow: "46,212,122",
+    glow2: "14,82,50",
+    bg: "#062113",
+  },
+];
+
+function frameMarkup(app) {
+  return `
     <style id="preview-frame">
       @media (min-width: 560px) {
         html {
@@ -36,8 +32,8 @@
           justify-content: center;
           gap: 18px;
           background:
-            radial-gradient(700px 700px at 78% 10%, rgba(46,212,122,0.26), transparent 60%),
-            radial-gradient(650px 650px at 18% 92%, rgba(14,82,50,0.16), transparent 60%),
+            radial-gradient(700px 700px at 78% 10%, rgba(${app.glow},0.26), transparent 60%),
+            radial-gradient(650px 650px at 18% 92%, rgba(${app.glow2},0.16), transparent 60%),
             #05060a;
         }
         .preview-bar {
@@ -68,13 +64,13 @@
           border-radius: calc(var(--frame-h) * 0.058);
           overflow: hidden;
           position: relative;
-          background: #062113;
+          background: ${app.bg};
           border: 1px solid rgba(255,255,255,0.15);
           box-shadow:
             0 0 0 9px rgba(255,255,255,0.045),
             0 0 0 10px rgba(255,255,255,0.10),
             0 60px 130px rgba(0,0,0,0.65),
-            0 0 90px rgba(46,212,122,0.16);
+            0 0 90px rgba(${app.glow},0.16);
           transform: translateZ(0);
         }
       }
@@ -84,20 +80,30 @@
         }
       }
     </style>
-  </head>
+`;
+}
 
-  <body>
-    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <!-- The root element for your Expo app. -->
-    
+function barMarkup(app) {
+  return `
     <div class="preview-bar">
       <a href="/app-previews/">&larr; All previews</a>
-      <span>Tipon &mdash; mobile web preview</span>
+      <span>${app.name} &mdash; mobile web preview</span>
     </div>
-    <div id="root"></div>
-  <script src="/app-previews/tipon/_expo/static/js/web/entry-417e336e9f76fc03dbedddb2229a7af4.js" defer></script>
-</body>
-</html>
+`;
+}
+
+let changed = 0;
+for (const app of APPS) {
+  const file = path.resolve(app.file);
+  let html = fs.readFileSync(file, "utf8");
+  if (html.includes('id="preview-frame"')) {
+    console.log("already wrapped:", app.file);
+    continue;
+  }
+  html = html.replace("</head>", frameMarkup(app) + "  </head>");
+  html = html.replace('<div id="root"></div>', barMarkup(app) + '    <div id="root"></div>');
+  fs.writeFileSync(file, html);
+  changed += 1;
+  console.log("wrapped:", app.file);
+}
+console.log(changed ? `done (${changed} files)` : "nothing to do");
